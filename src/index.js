@@ -1,5 +1,6 @@
 module.exports = function toReadable(number) {
     const twenty = {
+        0: 'zero',
         1: 'one',
         2: 'two',
         3: 'three',
@@ -23,8 +24,9 @@ module.exports = function toReadable(number) {
     }
 
     const tens = {
+        20: 'twenty',
         30: 'thirty',
-        40: 'fourty',
+        40: 'forty',
         50: 'fifty',
         60: 'sixty',
         70: 'seventy',
@@ -41,5 +43,14 @@ module.exports = function toReadable(number) {
             const residual = number % 10;
             return tens[number - residual] + ' ' + twenty[residual]
         }
+    } else {
+        const hundreds = twenty[Math.floor(number / 100)] + ' ' + 'hundred';
+        if (number % 100 === 0) {
+            return hundreds;
+        } else {
+            return hundreds + ' ' + toReadable(number % 100);
+        }
     }
 }
+
+console.log(module.exports(21));
